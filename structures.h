@@ -1,0 +1,37 @@
+#ifndef STRUCTURES_H
+#define STRUCTURES_H
+
+#define MAX_STATE 4 // Valores maiores para armazenar os espacos
+#define MAX_CITY 50
+#define MAX_COURSE 40
+
+#define MAX_HEAP 5 //!!MUDAR PARA 19
+#define MAX_INPUT_TAPES 5
+#define MAX_OUTPUT_TAPES 1
+
+#define NAMETXT "prova.txt"
+#define NAMEBIN "data.bin"
+
+#include <stdbool.h>
+
+typedef struct {
+  long mat;
+  double grade;
+  char state[MAX_STATE];
+  char city[MAX_CITY];
+  char course[MAX_COURSE];
+} Register;
+
+
+typedef struct {
+  Register regs;
+  bool isMarked;
+} ItemsHeap;
+
+typedef struct {
+  int nRegisters;
+  int situation;
+  bool P;
+} Arguments;
+
+#endif
