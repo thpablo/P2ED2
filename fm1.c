@@ -7,14 +7,13 @@ void textToBinary(const char *txtFile, const char *binFile)
 {
     FILE *input = fopen(txtFile, "r");
     FILE *output = fopen(binFile, "wb");
+    Register reg;
 
     if (input == NULL || output == NULL)
     {
         perror("Erro ao tentar abrir arquivo");
         exit(1);
     }
-
-    Register reg;
     while (!feof(input))
     {
         fscanf(input, "%ld %lf", &reg.mat, &reg.grade);
@@ -26,6 +25,37 @@ void textToBinary(const char *txtFile, const char *binFile)
 
     fclose(input);
     fclose(output);
+}
+void binaryToTxt(const char *binaryFileName, const char *txtFileName)
+{
+    FILE *binaryFile = fopen(binaryFileName, "rb");
+    if (binaryFile == NULL)
+    {
+        perror("Erro ao abrir o arquivo binário");
+        return;
+    }
+
+    FILE *txtFile = fopen(txtFileName, "w");
+    if (txtFile == NULL)
+    {
+        perror("Erro ao criar o arquivo de texto");
+        fclose(binaryFile);
+        return;
+    }
+
+    Register reg;
+
+    while (fread(&reg, sizeof(Register), 1, binaryFile) == 1)
+    {
+        fprintf(txtFile, "%ld ", reg.mat);
+        fprintf(txtFile, "%.2f ", reg.grade);
+        fprintf(txtFile, "%s ", reg.state);
+        fprintf(txtFile, "%s ", reg.city);
+        fprintf(txtFile, "%s\n", reg.course);
+    }
+
+    fclose(binaryFile);
+    fclose(txtFile);
 }
 
 void readBinaryFile(const char *fileName)
@@ -166,7 +196,7 @@ void generateOrderedBlocks(const char *dataFile)
         heap[0].isMarked = (gradeOut > heap[0].regs.grade) ? 1 : 0; ///////////////////
         if (heap[0].isMarked)
         {
-            //printf("Marcou (saiu %lf entrou %lf)\n", gradeOut, heap[0].regs.grade);
+            // printf("Marcou (saiu %lf entrou %lf)\n", gradeOut, heap[0].regs.grade);
             countMarkedItems++;
         }
         // Se todos os itens na memoria interna estiverem marcados
@@ -204,18 +234,10 @@ void generateOrderedBlocks(const char *dataFile)
 
 /* Intercalacao Balanceada F + 1 */
 
-/*GERAR HEAP LENDO REGISTROS ODS PRIMEIROS BLOCOS DE CADA FITA*/
-/* while(enquanto diferente de fim de arquivo){
-    while (LER BLOCOS VAI ATE ACHAR MATRICULA = -1 OU FINAL DO ARQUIVO)
-}*/
-/* Leio registro e coloco no heap pra construir */
-
-void intercalate()
+int intercalate()
 {
-    FILE *inputTapes[MAX_INPUT_TAPES];                // Fitas de entrada
+    FILE *inputTapes[MAX_INPUT_TAPES];                 // Fitas de entrada
     FILE *outputTape = fopen("outputTape.bin", "w+b"); // Fita saida
-
-    Register reg; reg.mat = 0;
 
     /* Abre as fitas de entrada */
     for (int i = 0; i < MAX_INPUT_TAPES; i++)
@@ -233,6 +255,7 @@ void intercalate()
 
     // Quantidade de blocos que foram terminados de ler
     short countBlocksFinished = 0;
+    short countBlocksTotal = 0;
 
     while (countTapesFinished < MAX_INPUT_TAPES)
     {
@@ -243,14 +266,16 @@ void intercalate()
             // Se nao ler mais registros, quer dizer que chegou no fim daquela fita
             if (c == 0)
             {
-                printf("xxx: %d \n", i);
                 countBlocksFinished++;
                 countTapesFinished++;
                 heap[i].isMarked = true; // marca como true para que eles nao sejam levados em conta ao construir heap
             }
-            else{
+            else
+            {
                 // Marcado inicia como falso
                 heap[i].isMarked = false;
+                if(heap[i].regs.mat == -1)
+                    heap[i].isMarked = true;
                 // Numero a que fita o registro se refere
                 heap[i].numTape = i;
             }
@@ -261,10 +286,8 @@ void intercalate()
 
         // Escreve na saida o elemento mais a esquerda do heap
         fwrite(&(heap[0].regs), sizeof(Register), 1, outputTape);
-        //printf("1- Escreveu %ld output\n", heap[0].regs.mat);
-        // Fita em que esta sendo percorrida atualmente
+        //  Fita em que esta sendo percorrida atualmente
         short currentTape = heap[0].numTape;
-        // intercalar
 
         // Enquanto quantidade de blocos finalizados < que quant. blocos por vez de cada fita
         while (countBlocksFinished < MAX_INPUT_TAPES)
@@ -282,15 +305,13 @@ void intercalate()
             {
                 heap[0].isMarked = true;
                 countBlocksFinished++;
+                countBlocksTotal++;
             }
             buildHeap(heap, MAX_INPUT_TAPES);
             fwrite(&(heap[0].regs), sizeof(Register), 1, outputTape);
-            //printf("2- Escreveu %ld output\n", heap[0].regs.mat);
             currentTape = heap[0].numTape;
         }
         countBlocksFinished = 0;
-
-
     }
 
     /* Fechando fitas */
@@ -298,6 +319,44 @@ void intercalate()
         fclose(inputTapes[i]);
 
     fclose(outputTape);
+
+    return countBlocksTotal;
+}
+
+void callIntercalate()
+{
+    Register reg;
+    short c = intercalate();
+    printf("res: %d\n", c);
+    FILE *inputTapes[MAX_INPUT_TAPES]; // Fitas de entrada
+    FILE *output = fopen("outputTape.bin", "r+b");
+
+    // Abre as fitas de entrada
+    for (int j = 0; j < 2; j++)
+    {
+        output = fopen("outputTape.bin", "r+b");
+        for (int i = 0; i < MAX_INPUT_TAPES; i++)
+        {
+            char nome[50];
+            sprintf(nome, "input_tape%d.bin", i + 1);
+            inputTapes[i] = fopen(nome, "w+b");
+        }
+        int index = 0;
+        while (!feof(output))
+        {
+            fread(&(reg), sizeof(Register), 1, output);
+            fwrite(&(reg), sizeof(Register), 1, inputTapes[index % MAX_INPUT_TAPES]);
+            if (reg.mat == -1)
+                index++;
+        }
+
+        for (int i = 0; i < MAX_INPUT_TAPES; i++)
+            fclose(inputTapes[i]);
+        fclose(output);
+
+        c = intercalate();
+        printf("res: %d\n", c);
+    }
 }
 
 int main()
@@ -308,11 +367,15 @@ int main()
     /* Gerar blocos ordenados */
     printf("Blocos Ordenados:\n");
     generateOrderedBlocks(NAMEBIN);
-    
-    printf("Intercalacao:\n");
-    intercalate();
-    printf("SAIDA: \n");
+
+    printf("----------------------\nIntercalacao:\n");
+    callIntercalate();
+
     readBinaryFile("outputTape.bin");
+    // binaryToTxt("input_tape1.bin", "Xsaida1.txt");
+    // binaryToTxt("input_tape2.bin", "Xsaida2.txt");
+    // binaryToTxt("input_tape3.bin", "Xsaida3.txt");
+    binaryToTxt("outputTape.bin", "saida.txt");
 
     return 0;
 }
