@@ -42,7 +42,8 @@ void readBinaryFile(const char *fileName)
     printf("Bloco %d: \n", countBlock);
     while (fread(&reg, sizeof(Register), 1, file) == 1)
     {
-        if(reg.mat == -1){
+        if (reg.mat == -1)
+        {
             countBlock++;
             printf("Bloco %d: \n", countBlock);
             continue;
@@ -107,14 +108,16 @@ void printHeap(ItemsHeap heap[], int size)
     printf("\n");
 }
 
-void generateOrderedBlocks(const char *dataFile) {
+void generateOrderedBlocks(const char *dataFile)
+{
     FILE *data = fopen(dataFile, "r"); // Dados
     FILE *inputTapes[MAX_INPUT_TAPES]; // Fitas de entrada
     int indexTapes = 0;                // Index para fitas de entrada
 
     /* Registrador Invalido que indica mudanca de bloco */
     Register jumpBlockIndicator;
-    jumpBlockIndicator.mat = -1; jumpBlockIndicator.grade = -1;
+    jumpBlockIndicator.mat = -1;
+    jumpBlockIndicator.grade = -1;
 
     /* Gera N fitas de entrada vazias */
     for (int i = 0; i < MAX_INPUT_TAPES; i++)
@@ -122,7 +125,7 @@ void generateOrderedBlocks(const char *dataFile) {
         char nome[50];
         // Crie a string "input_tapeX.bin" substituindo X pelo valor de i
         sprintf(nome, "input_tape%d.bin", i + 1);
-        inputTapes[i] = fopen(nome, "w+");
+        inputTapes[i] = fopen(nome, "w+b");
     }
 
     // Heap Memoria interna
@@ -148,8 +151,8 @@ void generateOrderedBlocks(const char *dataFile) {
 
         buildHeap(heap, MAX_HEAP); ////////////////////////////
 
-        /*printf("Depois de Ordenar:\n");*/
-        printHeap(heap, MAX_HEAP);
+        /*printf("Depois de Ordenar:\n");
+        printHeap(heap, MAX_HEAP);*/
 
         // Escreve na fita o elemento na posicao 0 do heap
         fwrite(&(heap[0].regs), sizeof(Register), 1, inputTapes[indexTapes]); ///////////////
@@ -163,7 +166,7 @@ void generateOrderedBlocks(const char *dataFile) {
         heap[0].isMarked = (gradeOut > heap[0].regs.grade) ? 1 : 0; ///////////////////
         if (heap[0].isMarked)
         {
-            printf("Marcou (saiu %lf entrou %lf)\n", gradeOut, heap[0].regs.grade);
+            //printf("Marcou (saiu %lf entrou %lf)\n", gradeOut, heap[0].regs.grade);
             countMarkedItems++;
         }
         // Se todos os itens na memoria interna estiverem marcados
@@ -184,8 +187,8 @@ void generateOrderedBlocks(const char *dataFile) {
             /*printf("Antes de ordenar\n");
             printHeap(heap, MAX_HEAP);*/
             buildHeap(heap, MAX_HEAP); ////////////////
-            /*printf("Depois de Ordenar:\n");*/
-            printHeap(heap, MAX_HEAP);
+            /*printf("Depois de Ordenar:\n");
+            printHeap(heap, MAX_HEAP);*/
         }
     }
     for (int i = 0; i < MAX_INPUT_TAPES; i++)
@@ -199,14 +202,103 @@ void generateOrderedBlocks(const char *dataFile) {
     fclose(data);
 }
 
-
 /* Intercalacao Balanceada F + 1 */
 
 /*GERAR HEAP LENDO REGISTROS ODS PRIMEIROS BLOCOS DE CADA FITA*/
 /* while(enquanto diferente de fim de arquivo){
-    while (LER BLOCOS VAI ATE ACHAR MATRICULA = -1 OU FINAL DO ARQUIVO) 
+    while (LER BLOCOS VAI ATE ACHAR MATRICULA = -1 OU FINAL DO ARQUIVO)
 }*/
 /* Leio registro e coloco no heap pra construir */
+
+void intercalate()
+{
+    FILE *inputTapes[MAX_INPUT_TAPES];                // Fitas de entrada
+    FILE *outputTape = fopen("outputTape.bin", "w+b"); // Fita saida
+
+    Register reg; reg.mat = 0;
+
+    /* Abre as fitas de entrada */
+    for (int i = 0; i < MAX_INPUT_TAPES; i++)
+    {
+        char nome[50];
+        sprintf(nome, "input_tape%d.bin", i + 1);
+        inputTapes[i] = fopen(nome, "r+b");
+    }
+
+    // Memoria interna
+    ItemsHeap heap[MAX_HEAP];
+
+    // Quantidade de fitas que terminaram de ser intercaladas
+    short countTapesFinished = 0;
+
+    // Quantidade de blocos que foram terminados de ler
+    short countBlocksFinished = 0;
+
+    while (countTapesFinished < MAX_INPUT_TAPES)
+    {
+        // Colocar primeiros valores de cada bloco na memoria interna:
+        for (int i = 0; i < MAX_INPUT_TAPES; i++)
+        {
+            short c = fread(&(heap[i].regs), sizeof(Register), 1, inputTapes[i]);
+            // Se nao ler mais registros, quer dizer que chegou no fim daquela fita
+            if (c == 0)
+            {
+                printf("xxx: %d \n", i);
+                countBlocksFinished++;
+                countTapesFinished++;
+                heap[i].isMarked = true; // marca como true para que eles nao sejam levados em conta ao construir heap
+            }
+            else{
+                // Marcado inicia como falso
+                heap[i].isMarked = false;
+                // Numero a que fita o registro se refere
+                heap[i].numTape = i;
+            }
+        }
+
+        // Construir heap
+        buildHeap(heap, MAX_HEAP);
+
+        // Escreve na saida o elemento mais a esquerda do heap
+        fwrite(&(heap[0].regs), sizeof(Register), 1, outputTape);
+        //printf("1- Escreveu %ld output\n", heap[0].regs.mat);
+        // Fita em que esta sendo percorrida atualmente
+        short currentTape = heap[0].numTape;
+        // intercalar
+
+        // Enquanto quantidade de blocos finalizados < que quant. blocos por vez de cada fita
+        while (countBlocksFinished < MAX_INPUT_TAPES)
+        {
+            // Caso nao tenha proximo elemento da mesma fita onde saiu o ultimo menor item
+            if (fread(&(heap[0].regs), sizeof(Register), 1, inputTapes[currentTape]) == 0)
+            {
+
+                heap[0].isMarked = true;
+                countBlocksFinished++;
+                countTapesFinished++;
+            }
+            // Caso tenha chegado no fim do bloco
+            else if (heap[0].regs.mat == -1)
+            {
+                heap[0].isMarked = true;
+                countBlocksFinished++;
+            }
+            buildHeap(heap, MAX_INPUT_TAPES);
+            fwrite(&(heap[0].regs), sizeof(Register), 1, outputTape);
+            //printf("2- Escreveu %ld output\n", heap[0].regs.mat);
+            currentTape = heap[0].numTape;
+        }
+        countBlocksFinished = 0;
+
+
+    }
+
+    /* Fechando fitas */
+    for (int i = 0; i < MAX_INPUT_TAPES; i++)
+        fclose(inputTapes[i]);
+
+    fclose(outputTape);
+}
 
 int main()
 {
@@ -214,7 +306,13 @@ int main()
     textToBinary(NAMETXT, NAMEBIN);
 
     /* Gerar blocos ordenados */
+    printf("Blocos Ordenados:\n");
     generateOrderedBlocks(NAMEBIN);
+    
+    printf("Intercalacao:\n");
+    intercalate();
+    printf("SAIDA: \n");
+    readBinaryFile("outputTape.bin");
 
     return 0;
 }

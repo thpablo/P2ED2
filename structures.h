@@ -5,8 +5,8 @@
 #define MAX_CITY 50
 #define MAX_COURSE 40
 
-#define MAX_HEAP 5 //!!MUDAR PARA 19
-#define MAX_INPUT_TAPES 5
+#define MAX_HEAP 3 //!!MUDAR PARA 19
+#define MAX_INPUT_TAPES 3
 #define MAX_OUTPUT_TAPES 1
 
 #define NAMETXT "prova.txt"
@@ -24,8 +24,9 @@ typedef struct {
 
 
 typedef struct {
-  Register regs;
-  bool isMarked;
+  Register regs; // Registro armazenadpo
+  bool isMarked; // Indicador se esta marcado com *
+  short numTape; // Indicador a qual fita pertence
 } ItemsHeap;
 
 typedef struct {
