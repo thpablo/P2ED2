@@ -1,0 +1,624 @@
+412790 0.00  MT  CUIABA                                              ADMINISTRACAO                 
+
+57202 0.00  MT  AGUA BOA                                            ADMINISTRACAO                 
+
+207334 0.00  MT  CUIABA                                              ADMINISTRACAO                 
+
+144473 0.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+454736 0.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+72808 0.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+221890 0.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+239419 0.00  MT  CUIABA                                              ADMINISTRACAO                 
+
+151750 0.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+423855 0.00  MT  CUIABA                                              ADMINISTRACAO                 
+
+59573 0.00  MT  CUIABA                                              ADMINISTRACAO                 
+
+370724 0.00  MT  CUIABA                                              ADMINISTRACAO                 
+
+47497 0.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+161889 0.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+84421 0.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+339589 0.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+119390 0.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+369658 0.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+34050 0.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+453078 0.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+259213 0.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+283054 0.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+22952 0.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+435753 0.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+32997 0.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+213978 10.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+254349 12.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+346592 14.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+65996 16.30  MT  AGUA BOA                                            ADMINISTRACAO                 
+
+269932 17.50  MT  CUIABA                                              ADMINISTRACAO                 
+
+37379 17.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+121505 18.80  MT  CUIABA                                              ADMINISTRACAO                 
+
+402740 18.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+150517 18.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+40975 20.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+301802 20.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+112781 20.30  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+412481 20.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+338433 21.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+300056 22.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+456679 22.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+286286 22.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+163079 23.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+306088 24.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+386413 24.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+210550 24.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+243219 25.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+5317 25.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+362081 27.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+111954 27.50  MT  CUIABA                                              ADMINISTRACAO                 
+
+23133 28.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+293078 28.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+203779 30.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+268715 30.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+142590 31.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+88312 31.30  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+113382 31.30  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+123938 31.50  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+183699 31.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+85344 31.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+329608 31.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+10942 32.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+213434 32.30  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+445958 32.80  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+8834 33.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+182746 33.30  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+101991 33.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+205746 33.50  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+173550 34.30  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+325545 34.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+170838 34.80  MT  CUIABA                                              ADMINISTRACAO                 
+
+311591 35.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+112564 35.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+170558 35.30  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+396530 35.80  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+190351 36.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+37778 36.50  MT  CUIABA                                              ADMINISTRACAO                 
+
+162633 36.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+59131 36.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+409928 37.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+255680 37.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+113285 37.30  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+66354 37.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+191878 37.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+3393 37.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+238292 38.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+124494 38.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+268678 38.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+95662 38.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+276824 38.50  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+85432 38.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+202266 38.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+25188 39.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+203084 39.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+291453 39.80  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+278763 39.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+107236 40.30  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+102393 40.50  MT  CUIABA                                              ADMINISTRACAO                 
+
+224450 40.50  MT  CUIABA                                              ADMINISTRACAO                 
+
+175921 41.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+65840 41.30  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+116493 41.50  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+340424 41.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+400008 42.00  MT  CUIABA                                              ADMINISTRACAO                 
+
+364281 42.30  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+221291 42.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+337759 42.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+394362 42.80  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+168351 43.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+9997 43.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+220132 43.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+61117 43.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+354405 43.80  MT  CUIABA                                              ADMINISTRACAO                 
+
+355310 44.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+373477 44.30  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+306648 44.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+216194 44.30  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+412715 44.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+212231 44.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+35798 45.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+304832 45.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+119830 45.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+210080 45.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+366462 45.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+422625 46.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+254576 46.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+336015 46.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+34535 46.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+329668 46.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+369241 46.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+142837 46.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+33559 46.80  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+58361 46.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+109386 46.80  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+186581 47.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+41603 47.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+406263 47.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+66569 47.50  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+360165 47.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+368815 47.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+34800 47.80  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+26451 47.80  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+384572 47.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+213784 48.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+106233 48.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+241228 48.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+253139 48.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+234043 48.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+198918 48.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+317807 48.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+2744 48.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+313201 48.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+10357 48.80  MT  CUIABA                                              ADMINISTRACAO                 
+
+331437 49.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+178216 49.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+300790 49.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+337653 49.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+295222 49.30  MT  CUIABA                                              ADMINISTRACAO                 
+
+355968 49.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+65744 49.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+446373 49.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+454483 50.00  MT  CUIABA                                              ADMINISTRACAO                 
+
+26638 50.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+354122 50.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+278537 50.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+401505 50.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+55231 50.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+130170 50.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+131218 50.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+164685 50.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+427785 51.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+345170 51.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+15294 51.30  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+205101 51.30  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+72731 51.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+387342 51.50  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+336507 51.50  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+21887 51.80  MT  CUIABA                                              ADMINISTRACAO                 
+
+119746 51.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+155589 51.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+47978 52.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+258469 52.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+285465 52.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+100312 52.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+19284 52.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+135818 52.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+415741 53.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+209822 53.00  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+59542 53.30  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+49975 53.50  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+453379 53.50  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+301105 53.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+124947 53.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+123883 53.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+190369 53.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+70951 53.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+305092 53.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+392635 54.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+267147 54.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+452861 54.80  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+5213 54.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+22350 54.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+414861 54.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+369726 55.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+115010 55.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+280714 55.30  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+281116 55.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+67407 55.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+88839 55.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+130673 55.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+382513 55.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+280726 55.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+124597 55.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+66198 56.00  MT  CUIABA                                              ADMINISTRACAO                 
+
+384724 56.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+5659 56.80  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+105583 56.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+21798 56.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+433602 56.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+443742 57.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+310850 57.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+81689 57.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+68791 57.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+131227 57.30  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+394101 57.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+228543 57.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+164090 57.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+351991 57.80  MT  CUIABA                                              ADMINISTRACAO                 
+
+317407 58.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+212501 58.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+120699 58.30  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+355550 58.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+433353 58.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+425803 58.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+348074 58.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+152828 58.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+401313 58.80  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+169350 58.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+409557 58.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+352040 59.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+452191 59.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+173538 59.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+162535 59.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+441443 60.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+319299 60.00  MT  CUIABA                                              ADMINISTRACAO                 
+
+3861 60.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+21433 60.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+315733 60.30  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+469266 60.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+230931 60.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+295148 60.80  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+228222 60.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+86358 61.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+266889 61.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+58175 61.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+164535 61.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+428336 62.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+112212 62.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+109120 62.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+278666 62.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+163934 62.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+386649 62.50  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+150205 62.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+139669 62.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+460650 63.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+169792 63.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+166187 63.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+77617 63.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+335967 63.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+277132 64.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+250589 64.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+309584 64.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+450981 64.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+448374 64.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+456165 65.00  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+301503 65.30  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+382871 65.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+336096 65.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+346047 66.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+25193 66.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+440588 66.80  MT  PRIMAVERA DO LESTE                                  ADMINISTRACAO                 
+
+416897 66.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+213829 67.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+240915 67.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+113812 67.30  MT  CUIABA                                              ADMINISTRACAO                 
+
+453200 68.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+286772 68.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+424746 69.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+195190 69.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+350655 69.30  MT  CUIABA                                              ADMINISTRACAO                 
+
+92076 69.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+17250 69.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+406521 69.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+216227 69.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+196197 69.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+167165 70.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+324583 70.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+447253 70.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+149018 70.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+397177 70.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+382868 70.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+411299 70.80  SE  SAO CRISTOVAO                                       ADMINISTRACAO                 
+
+463527 71.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+149220 72.00  DF  BRASILIA                                            ADMINISTRACAO                 
+
+350881 72.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+426064 72.30  MT  CUIABA                                              ADMINISTRACAO                 
+
+114282 72.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+223710 72.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+347068 73.30  DF  BRASILIA                                            ADMINISTRACAO                 
+
+60648 73.50  DF  BRASILIA                                            ADMINISTRACAO                 
+
+444331 76.80  DF  BRASILIA                                            ADMINISTRACAO                 
+
+217886 76.80  DF  BRASILIA                                            ADMINISTRACAO                 
+

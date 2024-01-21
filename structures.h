@@ -5,8 +5,8 @@
 #define MAX_CITY 50
 #define MAX_COURSE 40
 
-#define MAX_HEAP 3 //!!MUDAR PARA 19
-#define MAX_INPUT_TAPES 3
+#define MAX_HEAP 10 //!!MUDAR PARA 19
+#define MAX_INPUT_TAPES 10
 #define MAX_OUTPUT_TAPES 1
 
 #define NAMETXT "prova.txt"

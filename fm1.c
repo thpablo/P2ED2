@@ -79,7 +79,7 @@ void readBinaryFile(const char *fileName)
             continue;
         }
         // printf("Mat: %ld\n", reg.mat);
-        printf("Grade: %.1f", reg.grade);
+        printf("Grade: %.1f - Mat: %ld", reg.grade, reg.mat);
         /*
         printf("State: %s\n", reg.state);
         printf("City: %s\n", reg.city);
@@ -138,16 +138,14 @@ void printHeap(ItemsHeap heap[], int size)
     printf("\n");
 }
 
-void generateOrderedBlocks(const char *dataFile)
-{
+void generateOrderedBlocks(const char *dataFile) {
     FILE *data = fopen(dataFile, "r"); // Dados
     FILE *inputTapes[MAX_INPUT_TAPES]; // Fitas de entrada
     int indexTapes = 0;                // Index para fitas de entrada
 
     /* Registrador Invalido que indica mudanca de bloco */
     Register jumpBlockIndicator;
-    jumpBlockIndicator.mat = -1;
-    jumpBlockIndicator.grade = -1;
+    jumpBlockIndicator.mat = -1; jumpBlockIndicator.grade = -1;
 
     /* Gera N fitas de entrada vazias */
     for (int i = 0; i < MAX_INPUT_TAPES; i++)
@@ -155,7 +153,7 @@ void generateOrderedBlocks(const char *dataFile)
         char nome[50];
         // Crie a string "input_tapeX.bin" substituindo X pelo valor de i
         sprintf(nome, "input_tape%d.bin", i + 1);
-        inputTapes[i] = fopen(nome, "w+b");
+        inputTapes[i] = fopen(nome, "w+");
     }
 
     // Heap Memoria interna
@@ -176,13 +174,7 @@ void generateOrderedBlocks(const char *dataFile)
     /* While enquanto != fim de arquivo */
     while (!feof(data))
     {
-        /*printf("Antes de ordenar\n");
-        printHeap(heap, MAX_HEAP);*/
-
-        buildHeap(heap, MAX_HEAP); ////////////////////////////
-
-        /*printf("Depois de Ordenar:\n");
-        printHeap(heap, MAX_HEAP);*/
+        buildHeap(heap, MAX_HEAP);
 
         // Escreve na fita o elemento na posicao 0 do heap
         fwrite(&(heap[0].regs), sizeof(Register), 1, inputTapes[indexTapes]); ///////////////
@@ -196,7 +188,6 @@ void generateOrderedBlocks(const char *dataFile)
         heap[0].isMarked = (gradeOut > heap[0].regs.grade) ? 1 : 0; ///////////////////
         if (heap[0].isMarked)
         {
-            // printf("Marcou (saiu %lf entrou %lf)\n", gradeOut, heap[0].regs.grade);
             countMarkedItems++;
         }
         // Se todos os itens na memoria interna estiverem marcados
@@ -210,6 +201,7 @@ void generateOrderedBlocks(const char *dataFile)
             // Retira marcacao
             for (int i = 0; i < MAX_HEAP; i++)
                 heap[i].isMarked = false;
+
         }
         else
         {
@@ -217,8 +209,8 @@ void generateOrderedBlocks(const char *dataFile)
             /*printf("Antes de ordenar\n");
             printHeap(heap, MAX_HEAP);*/
             buildHeap(heap, MAX_HEAP); ////////////////
-            /*printf("Depois de Ordenar:\n");
-            printHeap(heap, MAX_HEAP);*/
+            /*printf("Depois de Ordenar:\n");*/
+            printHeap(heap, MAX_HEAP);
         }
     }
     for (int i = 0; i < MAX_INPUT_TAPES; i++)
@@ -231,6 +223,7 @@ void generateOrderedBlocks(const char *dataFile)
     }
     fclose(data);
 }
+
 
 /* Intercalacao Balanceada F + 1 */
 
@@ -286,6 +279,7 @@ int intercalate()
 
         // Escreve na saida o elemento mais a esquerda do heap
         fwrite(&(heap[0].regs), sizeof(Register), 1, outputTape);
+        printf("Escreveu %lf - %ld\n", heap[0].regs.grade, heap[0].regs.mat);
         //  Fita em que esta sendo percorrida atualmente
         short currentTape = heap[0].numTape;
 
@@ -308,6 +302,7 @@ int intercalate()
                 countBlocksTotal++;
             }
             buildHeap(heap, MAX_INPUT_TAPES);
+            printf("Escreveu %lf - %ld\n", heap[0].regs.grade, heap[0].regs.mat);
             fwrite(&(heap[0].regs), sizeof(Register), 1, outputTape);
             currentTape = heap[0].numTape;
         }
@@ -326,14 +321,17 @@ int intercalate()
 void callIntercalate()
 {
     Register reg;
-    short c = intercalate();
-    printf("res: %d\n", c);
     FILE *inputTapes[MAX_INPUT_TAPES]; // Fitas de entrada
     FILE *output = fopen("outputTape.bin", "r+b");
+    int x = 0;
+    short quantBlocksInOutput = intercalate();
+    printf("X: %d\n", quantBlocksInOutput);
+    x++;
 
     // Abre as fitas de entrada
-    for (int j = 0; j < 2; j++)
-    {
+
+    // Enquanto houver mais blocos que entradas, pode intercalar
+    while(quantBlocksInOutput > MAX_INPUT_TAPES){
         output = fopen("outputTape.bin", "r+b");
         for (int i = 0; i < MAX_INPUT_TAPES; i++)
         {
@@ -354,9 +352,27 @@ void callIntercalate()
             fclose(inputTapes[i]);
         fclose(output);
 
-        c = intercalate();
-        printf("res: %d\n", c);
+        quantBlocksInOutput = intercalate();
+        printf("X: %d\n", quantBlocksInOutput);
+        x++;
     }
+
+    FILE *formatedOutput = fopen("finalOutput.bin", "wb");
+    output = fopen("outputTape.bin", "rb");
+
+    while (fread(&reg, sizeof(Register), 1, output) == 1) {
+        // Verifica se o grade é diferente de -1
+        if (reg.grade != -1 && reg.mat < 99999999) {
+            // Se for diferente, escreve o registro no novo arquivo
+            fwrite(&reg, sizeof(Register), 1, formatedOutput);
+        }
+    }
+
+    // Fecha os arquivos
+    fclose(output);
+    fclose(formatedOutput);
+
+    printf("Fez %d vezes\n", x);
 }
 
 int main()
@@ -365,17 +381,16 @@ int main()
     textToBinary(NAMETXT, NAMEBIN);
 
     /* Gerar blocos ordenados */
-    printf("Blocos Ordenados:\n");
     generateOrderedBlocks(NAMEBIN);
-
+    //readBinaryFile(NAMEBIN);
     printf("----------------------\nIntercalacao:\n");
     callIntercalate();
 
-    readBinaryFile("outputTape.bin");
+    readBinaryFile("finalOutput.bin");
     // binaryToTxt("input_tape1.bin", "Xsaida1.txt");
     // binaryToTxt("input_tape2.bin", "Xsaida2.txt");
     // binaryToTxt("input_tape3.bin", "Xsaida3.txt");
-    binaryToTxt("outputTape.bin", "saida.txt");
+    binaryToTxt("finalOutput.bin", "saida.txt");
 
     return 0;
 }
