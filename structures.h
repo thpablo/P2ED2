@@ -1,18 +1,36 @@
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
 
-#define MAX_STATE 4 // Valores maiores para armazenar os espacos
-#define MAX_CITY 50
-#define MAX_COURSE 40
+#define MAX_STATE 3 // Valores maiores para armazenar os espacos
+#define MAX_CITY 51
+#define MAX_COURSE 31
 
-#define MAX_HEAP 10 //!!MUDAR PARA 19
-#define MAX_INPUT_TAPES 10
+#define MAX_HEAP 19
+#define MAX_INPUT_TAPES 19
 #define MAX_OUTPUT_TAPES 1
-
-#define NAMETXT "prova.txt"
-#define NAMEBIN "data.bin"
+#define NAMEBIN "bin/data.bin"
 
 #include <stdbool.h>
+
+/* Estruturas para intercalacao f + 1 */
+
+typedef struct{
+    long inscricao;
+    double nota;
+    char estado[MAX_STATE], cidade[MAX_CITY],curso[MAX_COURSE];
+}tItem;
+
+typedef struct{
+    tItem item;
+    int marcador;
+    int numTape;
+}tRegistro;
+
+typedef struct {
+    tRegistro* array;
+    int tamanho;
+    int capacidade;
+} Heap;
 
 typedef struct {
   long mat;
@@ -29,10 +47,8 @@ typedef struct {
   short numTape; // Indicador a qual fita pertence
 } ItemsHeap;
 
-typedef struct {
-  int nRegisters;
-  int situation;
-  bool P;
-} Arguments;
+
+
+
 
 #endif
