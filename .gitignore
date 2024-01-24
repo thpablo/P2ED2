@@ -3,3 +3,6 @@ exe
 .vscode
 *.bin
 antigointercalar.c
+jp.c
+fm1
+*.txt
