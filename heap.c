@@ -4,7 +4,6 @@
 #include <stdio.h>
 
 /* Funcoes Heap que usa nas funcoes de selecao  blocos ordenados*/
-
 void trocar(tRegistro* a, tRegistro* b) {
     tRegistro temp = *a;
     *a = *b;

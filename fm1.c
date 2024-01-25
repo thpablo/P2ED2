@@ -48,12 +48,12 @@ void selecao_por_substituicao(int numRegs, int *comparacoes)
     heap = criarHeap(MAX_HEAP);
 
     // heap construido, agora recebe os registros e joga pro heap
-    FILE *arquivoProvao = fopen("PROVAO.TXT", "r");
+    FILE *data = fopen("bin/data.bin", "rb");
     char nomeFitaEntrada[23] = "bin/fita00.bin";
     FILE *arquivoFita = fopen(nomeFitaEntrada, "ab");
     tItem marcaFim = {-1, 0, "", "", ""};
 
-    if (arquivoProvao == NULL)
+    if (data == NULL)
         printf("\nFalha ao abrir o arquivo\n");
     if (arquivoFita == NULL)
         printf("\nFalha ao abrir o arquivo\n");
@@ -61,17 +61,18 @@ void selecao_por_substituicao(int numRegs, int *comparacoes)
     int total = 0;
     int contadorRegistros = 0;
     // recebe os itens do provao, adiciona no registro com o marcador 0 e insere no heap
-    for (int i = 0; i < MAX_HEAP; i++)
+    int quantLerMemoriaInterna = (numRegs <= MAX_HEAP) ? numRegs : MAX_HEAP;
+    for (int i = 0; i < quantLerMemoriaInterna; i++)
     {
         tItem itemAux;
         tRegistro regAux;
 
-        itemAux = leitor_de_registros(arquivoProvao);
+        fread(&(itemAux), sizeof(tItem), 1, data);
         transferenciasREAD_EXTERNA_PARA_INTERNA++;
 
         regAux.item = itemAux;
         regAux.marcador = 0;
-        inserir(heap, regAux, comparacoes);
+        inserir(heap, regAux, comparacoes); //Adiciona no heap
     }
 
     int contaItensMarcados = 0;
@@ -85,11 +86,11 @@ void selecao_por_substituicao(int numRegs, int *comparacoes)
         {
             // comparando o menor do heap com o novo registro para saber se o novo sera marcado
             minReg = extrairMinimo(heap, comparacoes);
-            // printf("\nAdicionado: %.2lf - %s",minReg.item.nota,nomeFitaEntrada);
+
             total++;
             contadorRegistros++;
-            fwrite(&minReg.item, sizeof(tItem), 1, arquivoFita);
 
+            fwrite(&minReg.item, sizeof(tItem), 1, arquivoFita);
             transferenciasWRITE_INTERNA_PARA_EXTERNA++;
 
             if (contadorRegistros >= numRegs)
@@ -100,7 +101,7 @@ void selecao_por_substituicao(int numRegs, int *comparacoes)
                 jaEscreveuMarcaFim = 1;
                 break;
             }
-            novoReg.item = leitor_de_registros(arquivoProvao);
+            fread(&(novoReg.item), sizeof(tItem), 1, data);
             transferenciasREAD_EXTERNA_PARA_INTERNA++;
 
             (*comparacoes)++;
@@ -143,7 +144,7 @@ void selecao_por_substituicao(int numRegs, int *comparacoes)
         /*Abre fita de entrada seguinte */
         fopen(nomeFitaEntrada, "ab");
     } while (contadorRegistros < numRegs);
-    fclose(arquivoProvao);
+    fclose(data);
     desalocaHeap(heap);
 
     printf("---- METODO DE SELECAO ----\n");
@@ -205,7 +206,7 @@ void createTapes(int n)
 /* Inicia fitas para selecao */
 void initTapes(int numRegs, int *comparacoes)
 {
-    createTapes(MAX_INPUT_TAPES);      // Cria fitas resetadas para desconsiderar possiveis antigas
+    createTapes(MAX_INPUT_TAPES);                   // Cria fitas resetadas para desconsiderar possiveis antigas
     selecao_por_substituicao(numRegs, comparacoes); // Gera blocos Ordenados
 }
 
@@ -231,11 +232,12 @@ void binaryToTxt(const char *binaryFileName, const char *txtFileName)
 
     Register reg;
 
+    /* Leitura dos registros */
     while (fread(&reg, sizeof(Register), 1, binaryFile) == 1)
     {
         fprintf(txtFile, "%08ld ", reg.mat);     // Matrícula com zeros à esquerda e ocupando 6 posições
         fprintf(txtFile, "%05.1f ", reg.grade);  // Nota com 3 zeros à esquerda e 1 casa decimal
-        fprintf(txtFile, "%-2s ", reg.state);    // Estado com 2 caracteres à direita
+        fprintf(txtFile, "%-2s", reg.state);    // Estado com 2 caracteres à direita
         fprintf(txtFile, "%-50s", reg.city);    // Cidade com 50 caracteres à esquerda
         fprintf(txtFile, "%-30s \n", reg.course); // Curso com 30 caracteres à esquerda
     }
@@ -503,6 +505,7 @@ void callFormatFinalOutput()
     binaryToTxt("bin/finalOutput.bin", "SaidaFinal.txt");
 }
 
+/* Escolhe qual arquivo base sera usado */
 void switchNameFile(char *nameFile, int situacao)
 {
     switch (situacao)

@@ -1,18 +1,19 @@
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
 
-#define MAX_STATE 3 // Valores maiores para armazenar os espacos
+//Tamanho da estrutura
+#define MAX_STATE 3 
 #define MAX_CITY 51
 #define MAX_COURSE 31
 
-#define MAX_HEAP 19
-#define MAX_INPUT_TAPES 19
-#define MAX_OUTPUT_TAPES 1
-#define NAMEBIN "bin/data.bin"
+#define MAX_HEAP 19         // Tamanho memoria interna
+#define MAX_INPUT_TAPES 19  // Quantidade fitas entrada
+#define MAX_OUTPUT_TAPES 1  // Quantidade fitas saida
+#define NAMEBIN "bin/data.bin" //Nome onde e salvo os dados em binario
 
 #include <stdbool.h>
 
-/* Estruturas para intercalacao f + 1 */
+/* Estruturas Heap usada na geracao dos blocos ordenados (Selecao por substituicao)*/
 
 typedef struct{
     long inscricao;
@@ -32,6 +33,7 @@ typedef struct {
     int capacidade;
 } Heap;
 
+/* Estruturas para intercalacao F + 1 */
 typedef struct {
   long mat;
   double grade;
@@ -46,9 +48,5 @@ typedef struct {
   bool isMarked; // Indicador se esta marcado com *
   short numTape; // Indicador a qual fita pertence
 } ItemsHeap;
-
-
-
-
 
 #endif
