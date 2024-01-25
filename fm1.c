@@ -72,7 +72,7 @@ void selecao_por_substituicao(int numRegs, int *comparacoes)
 
         regAux.item = itemAux;
         regAux.marcador = 0;
-        inserir(heap, regAux, comparacoes); //Adiciona no heap
+        inserir(heap, regAux, comparacoes); // Adiciona no heap
     }
 
     int contaItensMarcados = 0;
@@ -121,7 +121,7 @@ void selecao_por_substituicao(int numRegs, int *comparacoes)
         desmarcaHeap(heap);
 
         // printa um marcador de fim de bloco, onde a inscricao eh -1
-        if (!jaEscreveuMarcaFim) //Evitar escreverem multiplos -1
+        if (!jaEscreveuMarcaFim) // Evitar escreverem multiplos -1
         {
             fwrite(&marcaFim, sizeof(tItem), 1, arquivoFita);
             transferenciasWRITE_INTERNA_PARA_EXTERNA++;
@@ -235,10 +235,10 @@ void binaryToTxt(const char *binaryFileName, const char *txtFileName)
     /* Leitura dos registros */
     while (fread(&reg, sizeof(Register), 1, binaryFile) == 1)
     {
-        fprintf(txtFile, "%08ld ", reg.mat);     // Matrícula com zeros à esquerda e ocupando 6 posições
-        fprintf(txtFile, "%05.1f ", reg.grade);  // Nota com 3 zeros à esquerda e 1 casa decimal
-        fprintf(txtFile, "%-2s", reg.state);    // Estado com 2 caracteres à direita
-        fprintf(txtFile, "%-50s", reg.city);    // Cidade com 50 caracteres à esquerda
+        fprintf(txtFile, "%08ld ", reg.mat);      // Matrícula com zeros à esquerda e ocupando 6 posições
+        fprintf(txtFile, "%05.1f ", reg.grade);   // Nota com 3 zeros à esquerda e 1 casa decimal
+        fprintf(txtFile, "%-2s", reg.state);      // Estado com 2 caracteres à direita
+        fprintf(txtFile, "%-50s", reg.city);      // Cidade com 50 caracteres à esquerda
         fprintf(txtFile, "%-30s \n", reg.course); // Curso com 30 caracteres à esquerda
     }
 
@@ -256,7 +256,7 @@ void swap(ItemsHeap *a, ItemsHeap *b)
     *b = temp;
 }
 
-void heapify(ItemsHeap heap[], int n, int i, int* comparacoes)
+void heapify(ItemsHeap heap[], int n, int i, int *comparacoes)
 {
     int smallest = i;
     int left = 2 * i + 1;
@@ -266,7 +266,8 @@ void heapify(ItemsHeap heap[], int n, int i, int* comparacoes)
     if (left < n &&
         (heap[left].isMarked < heap[smallest].isMarked ||
          (heap[left].isMarked == heap[smallest].isMarked &&
-          heap[left].regs.grade < heap[smallest].regs.grade))) {
+          heap[left].regs.grade < heap[smallest].regs.grade)))
+    {
         smallest = left;
     }
 
@@ -274,7 +275,8 @@ void heapify(ItemsHeap heap[], int n, int i, int* comparacoes)
     if (right < n &&
         (heap[right].isMarked < heap[smallest].isMarked ||
          (heap[right].isMarked == heap[smallest].isMarked &&
-          heap[right].regs.grade < heap[smallest].regs.grade))) {
+          heap[right].regs.grade < heap[smallest].regs.grade)))
+    {
         smallest = right;
     }
 
@@ -409,8 +411,17 @@ int intercalateFM1(int *transfRead, int *transfWrite, int *comparacoes)
     return countBlocksTotal;
 }
 
+void showReg(Register reg)
+{
+    printf("%08ld ", reg.mat);      // Matrícula com zeros à esquerda e ocupando 6 posições
+    printf("%05.1f ", reg.grade);   // Nota com 3 zeros à esquerda e 1 casa decimal
+    printf("%-2s", reg.state);      // Estado com 2 caracteres à direita
+    printf("%-50s", reg.city);      // Cidade com 50 caracteres à esquerda
+    printf("%-30s \n", reg.course); // Curso com 30 caracteres à esquerda
+}
+
 /* Escreve os registros validos na saida final */
-void formatFinalOutput(FILE *output, FILE *formatedOutput)
+void formatFinalOutput(FILE *output, FILE *formatedOutput, int show)
 {
     Register reg;
 
@@ -421,6 +432,8 @@ void formatFinalOutput(FILE *output, FILE *formatedOutput)
         if (reg.mat != 0 && reg.mat != 1 && !(reg.state[0] == '\0' || reg.city[0] == '\0' || reg.course[0] == '\0'))
         {
             fwrite(&reg, sizeof(Register), 1, formatedOutput);
+            if (show)
+                showReg(reg);
         }
     }
 }
@@ -493,12 +506,12 @@ void callIntercalate(int *comparacoes)
 }
 
 /* FOrmata saida final retirando valores com registros Jump */
-void callFormatFinalOutput()
+void callFormatFinalOutput(int containP)
 {
     FILE *output = fopen("bin/outputTape.bin", "r+b");
     FILE *formatedOutput = fopen("bin/finalOutput.bin", "w+b");
 
-    formatFinalOutput(output, formatedOutput);
+    formatFinalOutput(output, formatedOutput, containP);
     fclose(output);
     fclose(formatedOutput);
 
@@ -525,12 +538,27 @@ void switchNameFile(char *nameFile, int situacao)
     }
 }
 
+/* Verifica se contem -P */
+int verifyP(int nArg, char const *argv[])
+{
+    char menosP[3];
+    if (nArg > 4)
+    {
+        strncpy(menosP, argv[4], sizeof(menosP) - 1);
+        menosP[sizeof(menosP) - 1] = '\0';
+        if (strcmp(menosP, "-P") == 0)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 int main(int argc, char const *argv[])
 {
-
-    printf("nota: Colocar funcao -P...\n");
     int numRegs = atoi(argv[2]);
     int situacao = atoi(argv[3]);
+    int contemMenosP = verifyP(argc, argv);
     int comparacoes = 0;
 
     char nameFile[30];
@@ -545,14 +573,13 @@ int main(int argc, char const *argv[])
     int comparacoesBlocosOrdenados = comparacoes;
     printf("\nNumero de Comparacoes para gerar blocos ordenados: %d\n\n", comparacoesBlocosOrdenados);
 
-
     /* Chama intercalacao */
     callIntercalate(&comparacoes);
 
     printf("\nNumero de Comparacoes para intercalacao: %d\n", (comparacoes - comparacoesBlocosOrdenados));
 
     /* Formata saida Final*/
-    callFormatFinalOutput();
+    callFormatFinalOutput(contemMenosP);
     printf("---------- ** ----------\n");
     printf("Comparacoes totais: %d\n", comparacoes);
     return 0;
