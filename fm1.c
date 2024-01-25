@@ -489,7 +489,7 @@ void callIntercalate(int *comparacoes)
 
     printf("-------- Transferencias Intercalacao --------\n");
     printf("Transferencias numero Escritas:\t\t %d\n", transferenciasWRITE_INTERNA_PARA_EXTERNA);
-    printf("Transferencias numero de Leituras:\t\t %d\n", transferenciasWRITE_INTERNA_PARA_EXTERNA);
+    printf("Transferencias numero de Leituras:\t %d\n", transferenciasWRITE_INTERNA_PARA_EXTERNA);
 }
 
 /* FOrmata saida final retirando valores com registros Jump */
