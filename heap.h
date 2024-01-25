@@ -6,17 +6,16 @@
 
 Heap* criarHeap(int capacidade);
 
-void construirHeap(Heap* heap);
 
 void desalocaHeap(Heap* heap);
 
 void trocar(tRegistro* a, tRegistro* b) ;
 
-void minHeapify(Heap* heap, int indice);
+void minHeapify(Heap* heap, int indice, int *comparacoes);
 
-tRegistro extrairMinimo(Heap* heap);
+tRegistro extrairMinimo(Heap* heap, int *comparacoes);
 
-void inserir(Heap* heap, tRegistro elemento);
+void inserir(Heap* heap, tRegistro elemento, int *comparacoes);
 
 int marcaRegistro(tRegistro,tRegistro);
 

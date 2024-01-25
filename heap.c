@@ -11,11 +11,12 @@ void trocar(tRegistro* a, tRegistro* b) {
     *b = temp;
 }
 
-void minHeapify(Heap* heap, int indice) {
+void minHeapify(Heap* heap, int indice, int *comparacoes) {
     int menor = indice;
     int esquerdo = 2 * indice + 1;
     int direito = 2 * indice + 2;
 
+    (*comparacoes)++;
     // Ordenar primeiro por marcado e depois por nota em caso de empate
     if (esquerdo < heap->tamanho &&
         (heap->array[esquerdo].marcador < heap->array[menor].marcador ||
@@ -23,7 +24,7 @@ void minHeapify(Heap* heap, int indice) {
           heap->array[esquerdo].item.nota < heap->array[menor].item.nota))) {
         menor = esquerdo;
     }
-
+    (*comparacoes)++;
     if (direito < heap->tamanho &&
         (heap->array[direito].marcador < heap->array[menor].marcador ||
          (heap->array[direito].marcador == heap->array[menor].marcador &&
@@ -33,19 +34,12 @@ void minHeapify(Heap* heap, int indice) {
 
     if (menor != indice) {
         trocar(&heap->array[indice], &heap->array[menor]);
-        minHeapify(heap, menor);
+        minHeapify(heap, menor, comparacoes);
     }
 }
 
 
-
-void construirHeap(Heap* heap) {
-    for (int i = (heap->tamanho / 2) - 1; i >= 0; i--) {
-        minHeapify(heap, i);
-    }
-}
-
-tRegistro extrairMinimo(Heap* heap) {
+tRegistro extrairMinimo(Heap* heap, int *comparacoes) {
     tRegistro valorInvalido = {{0, 0.0, "", "", ""}, 0}; // Valor inválido para indicar erro
 
     if (heap->tamanho <= 0) {
@@ -57,12 +51,12 @@ tRegistro extrairMinimo(Heap* heap) {
     heap->array[0] = heap->array[heap->tamanho - 1];
     heap->tamanho--;
 
-    minHeapify(heap, 0);
+    minHeapify(heap, 0, comparacoes);
 
     return raiz;
 }
 
-void inserir(Heap* heap, tRegistro elemento) {
+void inserir(Heap* heap, tRegistro elemento, int *comparacoes) {
     if (heap->tamanho == heap->capacidade) {
         printf("Erro: Heap cheio.\n");
         return;
@@ -76,6 +70,7 @@ void inserir(Heap* heap, tRegistro elemento) {
            (heap->array[indice].marcador < heap->array[(indice - 1) / 2].marcador ||
             (heap->array[indice].marcador == heap->array[(indice - 1) / 2].marcador &&
              heap->array[indice].item.nota < heap->array[(indice - 1) / 2].item.nota))) {
+        (*comparacoes)++;
         trocar(&heap->array[indice], &heap->array[(indice - 1) / 2]);
         indice = (indice - 1) / 2;
     }

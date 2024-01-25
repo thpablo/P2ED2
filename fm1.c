@@ -38,9 +38,8 @@ tItem leitor_de_registros(FILE *arquivo)
 }
 
 /* Gera blocos por selecao */
-void selecao_por_substituicao(int numRegs)
+void selecao_por_substituicao(int numRegs, int *comparacoes)
 {
-
     /* Variaveis para analise */
     int transferenciasWRITE_INTERNA_PARA_EXTERNA = 0;
     int transferenciasREAD_EXTERNA_PARA_INTERNA = 0;
@@ -72,7 +71,7 @@ void selecao_por_substituicao(int numRegs)
 
         regAux.item = itemAux;
         regAux.marcador = 0;
-        inserir(heap, regAux);
+        inserir(heap, regAux, comparacoes);
     }
 
     int contaItensMarcados = 0;
@@ -85,7 +84,7 @@ void selecao_por_substituicao(int numRegs)
         do
         {
             // comparando o menor do heap com o novo registro para saber se o novo sera marcado
-            minReg = extrairMinimo(heap);
+            minReg = extrairMinimo(heap, comparacoes);
             // printf("\nAdicionado: %.2lf - %s",minReg.item.nota,nomeFitaEntrada);
             total++;
             contadorRegistros++;
@@ -104,6 +103,7 @@ void selecao_por_substituicao(int numRegs)
             novoReg.item = leitor_de_registros(arquivoProvao);
             transferenciasREAD_EXTERNA_PARA_INTERNA++;
 
+            (*comparacoes)++;
             if (minReg.item.nota > novoReg.item.nota)
             {
                 novoReg.marcador = 1;
@@ -112,7 +112,7 @@ void selecao_por_substituicao(int numRegs)
             else
                 novoReg.marcador = 0;
 
-            inserir(heap, novoReg);
+            inserir(heap, novoReg, comparacoes);
         } while (contaItensMarcados < MAX_HEAP || minReg.marcador == 1);
         contaItensMarcados = 0;
 
@@ -120,7 +120,8 @@ void selecao_por_substituicao(int numRegs)
         desmarcaHeap(heap);
 
         // printa um marcador de fim de bloco, onde a inscricao eh -1
-        if (!jaEscreveuMarcaFim){
+        if (!jaEscreveuMarcaFim) //Evitar escreverem multiplos -1
+        {
             fwrite(&marcaFim, sizeof(tItem), 1, arquivoFita);
             transferenciasWRITE_INTERNA_PARA_EXTERNA++;
         }
@@ -146,8 +147,8 @@ void selecao_por_substituicao(int numRegs)
     desalocaHeap(heap);
 
     printf("---- METODO DE SELECAO ----\n");
-    printf("NUMERO DE TRANSFERENCIAS DE ESCRITAS:\t %d\n", transferenciasWRITE_INTERNA_PARA_EXTERNA);
-    printf("NUMERO DE TRANSFERENCIAS DE LEITURAS:\t %d\n", transferenciasREAD_EXTERNA_PARA_INTERNA);
+    printf("NUMERO DE TRANSFERENCIAS DE ESCRITAS:\t\t %d\n", transferenciasWRITE_INTERNA_PARA_EXTERNA);
+    printf("NUMERO DE TRANSFERENCIAS DE LEITURAS:\t\t %d\n", transferenciasREAD_EXTERNA_PARA_INTERNA);
 }
 
 /* Le arquivo provao */
@@ -202,10 +203,10 @@ void createTapes(int n)
 }
 
 /* Inicia fitas para selecao */
-void initTapes(int numRegs)
+void initTapes(int numRegs, int *comparacoes)
 {
-    createTapes(MAX_INPUT_TAPES); // Cria fitas resetadas para desconsiderar possiveis antigas
-    selecao_por_substituicao(numRegs);   // Gera blocos Ordenados
+    createTapes(MAX_INPUT_TAPES);      // Cria fitas resetadas para desconsiderar possiveis antigas
+    selecao_por_substituicao(numRegs, comparacoes); // Gera blocos Ordenados
 }
 
 /* ----------- FIM Funcoes de Selecao por Substituicao -------------------------------*/
@@ -232,45 +233,16 @@ void binaryToTxt(const char *binaryFileName, const char *txtFileName)
 
     while (fread(&reg, sizeof(Register), 1, binaryFile) == 1)
     {
-        fprintf(txtFile, "%ld ", reg.mat);
-        fprintf(txtFile, "%.2f ", reg.grade);
-        fprintf(txtFile, "%s ", reg.state);
-        fprintf(txtFile, "%s ", reg.city);
-        fprintf(txtFile, "%s\n", reg.course);
+        fprintf(txtFile, "%08ld ", reg.mat);     // Matrícula com zeros à esquerda e ocupando 6 posições
+        fprintf(txtFile, "%05.1f ", reg.grade);  // Nota com 3 zeros à esquerda e 1 casa decimal
+        fprintf(txtFile, "%-2s ", reg.state);    // Estado com 2 caracteres à direita
+        fprintf(txtFile, "%-50s", reg.city);    // Cidade com 50 caracteres à esquerda
+        fprintf(txtFile, "%-30s \n", reg.course); // Curso com 30 caracteres à esquerda
     }
 
     fclose(binaryFile);
     fclose(txtFile);
 }
-
-/*NAO COLOCAR NO FINAL*/
-/* Le arquivo binario com formato Register
-void readBinaryFile(const char *fileName)
-{
-    FILE *file = fopen(fileName, "rb");
-
-    if (file == NULL)
-    {
-        perror("Erro ao tentar abrir arquivo");
-        exit(1);
-    }
-    short countBlock = 1;
-    Register reg;
-    printf("Bloco %d: \n", countBlock);
-    while (fread(&reg, sizeof(Register), 1, file) == 1)
-    {
-        if (reg.mat == -1)
-        {
-            countBlock++;
-            printf("Bloco %d: \n", countBlock);
-            continue;
-        }
-        printf("Nota: %.1f - Mat: %ld Estado: %s - Cidade: %s - Curso: %s\n", reg.grade, reg.mat, reg.state, reg.city, reg.course);
-    }
-    printf("\n");
-    fclose(file);
-}
-*/
 
 /* ---- Funcoes Heap que funciona so pra Intercalacao -------- */
 
@@ -282,37 +254,47 @@ void swap(ItemsHeap *a, ItemsHeap *b)
     *b = temp;
 }
 
-void heapify(ItemsHeap heap[], int n, int i)
+void heapify(ItemsHeap heap[], int n, int i, int* comparacoes)
 {
     int smallest = i;
     int left = 2 * i + 1;
     int right = 2 * i + 2;
-
-    if (left < n && ((heap[left].regs.grade < heap[smallest].regs.grade && !heap[left].isMarked) || heap[smallest].isMarked))
+    (*comparacoes)++;
+    // Ordenar primeiro por marcado e depois por nota em caso de empate
+    if (left < n &&
+        (heap[left].isMarked < heap[smallest].isMarked ||
+         (heap[left].isMarked == heap[smallest].isMarked &&
+          heap[left].regs.grade < heap[smallest].regs.grade))) {
         smallest = left;
+    }
 
-    if (right < n && ((heap[right].regs.grade < heap[smallest].regs.grade && !heap[right].isMarked) || heap[smallest].isMarked))
+    (*comparacoes)++;
+    if (right < n &&
+        (heap[right].isMarked < heap[smallest].isMarked ||
+         (heap[right].isMarked == heap[smallest].isMarked &&
+          heap[right].regs.grade < heap[smallest].regs.grade))) {
         smallest = right;
+    }
 
     if (smallest != i)
     {
         swap(&heap[i], &heap[smallest]);
-        heapify(heap, n, smallest);
+        heapify(heap, n, smallest, comparacoes);
     }
 }
 
-void buildHeap(ItemsHeap heap[], int n)
+void buildHeap(ItemsHeap heap[], int n, int *comparacoes)
 {
     int startIdx = (n / 2) - 1;
 
     for (int i = startIdx; i >= 0; i--)
     {
-        heapify(heap, n, i);
+        heapify(heap, n, i, comparacoes);
     }
 }
 
 /* Intercalacao Balanceada F + 1 */
-int intercalateFM1(int* transfRead, int* transfWrite)
+int intercalateFM1(int *transfRead, int *transfWrite, int *comparacoes)
 {
     FILE *inputTapes[MAX_INPUT_TAPES];                     // Fitas de entrada
     FILE *outputTape = fopen("bin/outputTape.bin", "w+b"); // Fita saida
@@ -344,11 +326,15 @@ int intercalateFM1(int* transfRead, int* transfWrite)
         // Colocar primeiros valores de cada bloco na memoria interna:
         for (int i = 0; i < MAX_INPUT_TAPES; i++)
         {
+            // Le primeiro registro dos blocos
             short c = fread(&(heap[i].regs), sizeof(Register), 1, inputTapes[i]);
             *transfRead = (*transfRead) + 1;
-            // Se nao ler mais registros, quer dizer que chegou no fim daquela fita
-            if (c == 0)
+
+            // Se nao ler mais registros ou ler registro que indicafim do bloco,
+            // significa que chegou no fim daquela fita
+            if (c == 0 || heap[i].regs.mat == -1)
             {
+                // Aumenta quantidade de Blocos e fitas finalizados
                 countBlocksFinished++;
                 countTapesFinished++;
                 heap[i].isMarked = true; // marca como true para que eles nao sejam levados em conta ao construir heap
@@ -357,15 +343,13 @@ int intercalateFM1(int* transfRead, int* transfWrite)
             {
                 // Marcado inicia como falso
                 heap[i].isMarked = false;
-                if (heap[i].regs.mat == -1)
-                    heap[i].isMarked = true;
                 // Numero a que fita o registro se refere
                 heap[i].numTape = i;
             }
         }
 
-        // Construir heap
-        buildHeap(heap, MAX_HEAP);
+        // Construir heap para os primeiros valores
+        buildHeap(heap, MAX_HEAP, comparacoes);
 
         // Escreve na saida o menor elemento na posicao 0 do heap
         fwrite(&(heap[0].regs), sizeof(Register), 1, outputTape);
@@ -374,7 +358,7 @@ int intercalateFM1(int* transfRead, int* transfWrite)
         //   Fita em que esta sendo percorrida atualmente
         short currentTape = heap[0].numTape;
 
-        // Enquanto quantidade de blocos finalizados < que quant. blocos por vez de cada fita
+        // Enquanto quantidade de blocos finalizados < que quant. de fitas
         while (countBlocksFinished < MAX_INPUT_TAPES)
         {
             // Caso nao tenha proximo elemento da mesma fita onde saiu o ultimo menor item
@@ -399,13 +383,14 @@ int intercalateFM1(int* transfRead, int* transfWrite)
             }
 
             *transfRead = (*transfRead) + 1;
-            // Constroi heap
-            buildHeap(heap, MAX_HEAP);
+            // Constroi heap com os valores intercalados
+            buildHeap(heap, MAX_HEAP, comparacoes);
 
             // Escreve na saida o menor elemento (posicao 0 do heap)
             fwrite(&(heap[0].regs), sizeof(Register), 1, outputTape);
             *transfWrite = (*transfWrite) + 1;
-            // Indica qual fita esta sendo intercalada
+
+            // Indica qual fita esta sendo intercalada (sempre a do menor registro - posicao 0)
             currentTape = heap[0].numTape;
         }
         // Zera quantidade de blocos finalizados para intercalar outros blocos
@@ -418,8 +403,7 @@ int intercalateFM1(int* transfRead, int* transfWrite)
 
     fclose(outputTape);
 
-    //printf("w: %d r: %d\n", (*transfWrite), (*transfWrite));
-    // Retorna a quantidade de blocos gerados na saida
+    //  Retorna a quantidade de blocos gerados na saida
     return countBlocksTotal;
 }
 
@@ -440,14 +424,14 @@ void formatFinalOutput(FILE *output, FILE *formatedOutput)
 }
 
 /* Chama a funcao de intercalar a quantidade de vezes necessaria */
-void callIntercalate()
+void callIntercalate(int *comparacoes)
 {
     Register reg;
     FILE *inputTapes[MAX_INPUT_TAPES]; // Fitas de entrada
     FILE *output;                      // Fita de Saida
     char nomeFitaEntrada[15];
 
-        /* Variaveis para analise */
+    /* Variaveis para analise */
     int transferenciasWRITE_INTERNA_PARA_EXTERNA = 0;
     int transferenciasREAD_EXTERNA_PARA_INTERNA = 0;
 
@@ -455,10 +439,8 @@ void callIntercalate()
     int numberTimesIntercalate = 0;
 
     /* Intercala a primeira vez */
-    int quantBlocksInOutput = intercalateFM1(&transferenciasREAD_EXTERNA_PARA_INTERNA, &transferenciasWRITE_INTERNA_PARA_EXTERNA);
-
+    int quantBlocksInOutput = intercalateFM1(&transferenciasREAD_EXTERNA_PARA_INTERNA, &transferenciasWRITE_INTERNA_PARA_EXTERNA, comparacoes);
     // quantidade de blocos na saida
-    printf("Blocks in Output: %d\n", quantBlocksInOutput);
     numberTimesIntercalate++;
 
     /* Intercala outras vezes */
@@ -480,9 +462,10 @@ void callIntercalate()
         {
             fread(&(reg), sizeof(Register), 1, output);
             transferenciasREAD_EXTERNA_PARA_INTERNA = transferenciasREAD_EXTERNA_PARA_INTERNA + 1;
-            if (regAnterior.mat != -1){
+            if (!(regAnterior.mat == -1 && reg.mat == -1))
+            {
                 fwrite(&(reg), sizeof(Register), 1, inputTapes[index % MAX_INPUT_TAPES]);
-                transferenciasWRITE_INTERNA_PARA_EXTERNA = transferenciasWRITE_INTERNA_PARA_EXTERNA + 1; 
+                transferenciasWRITE_INTERNA_PARA_EXTERNA = transferenciasWRITE_INTERNA_PARA_EXTERNA + 1;
             }
             if (reg.mat == -1)
             {
@@ -495,18 +478,16 @@ void callIntercalate()
             fclose(inputTapes[i]);
 
         fclose(output);
-        quantBlocksInOutput = intercalateFM1(&transferenciasREAD_EXTERNA_PARA_INTERNA, &transferenciasWRITE_INTERNA_PARA_EXTERNA);
-        printf("Blocks in Output: %d\n", quantBlocksInOutput);
+        quantBlocksInOutput = intercalateFM1(&transferenciasREAD_EXTERNA_PARA_INTERNA, &transferenciasWRITE_INTERNA_PARA_EXTERNA, comparacoes);
         numberTimesIntercalate++;
     }
-
-    binaryToTxt("bin/outputTape.bin", "SaidaTemporaria.txt");
-    printf("Fez %d intercalacoes\n", numberTimesIntercalate);
+    printf("---------- ** ----------\n");
+    printf(" Fez %d intercalacoes\n", numberTimesIntercalate);
+    printf("---------- ** ----------\n");
 
     printf("-------- Transferencias Intercalacao --------\n");
-    printf("Transferencias numero Escritas:\t %d\n", transferenciasWRITE_INTERNA_PARA_EXTERNA);
-    printf("Transferencias numero de Leituras:\t %d\n", transferenciasWRITE_INTERNA_PARA_EXTERNA);
-
+    printf("Transferencias numero Escritas:\t\t %d\n", transferenciasWRITE_INTERNA_PARA_EXTERNA);
+    printf("Transferencias numero de Leituras:\t\t %d\n", transferenciasWRITE_INTERNA_PARA_EXTERNA);
 }
 
 /* FOrmata saida final retirando valores com registros Jump */
@@ -522,24 +503,24 @@ void callFormatFinalOutput()
     binaryToTxt("bin/finalOutput.bin", "SaidaFinal.txt");
 }
 
-void switchNameFile(char *nameFile, int situacao) {
-    switch(situacao) {
-        case 1:
-            strcpy(nameFile, "ascendente.txt");
-            break;
-        case 2:
-            strcpy(nameFile, "descendente.txt");
-            break;
-        case 3:
-            strcpy(nameFile, "PROVAO.TXT");
-            break;
-        default:
-            printf("Insira uma situacao valida");
-            exit(1);
+void switchNameFile(char *nameFile, int situacao)
+{
+    switch (situacao)
+    {
+    case 1:
+        strcpy(nameFile, "ascendente.txt");
+        break;
+    case 2:
+        strcpy(nameFile, "descendente.txt");
+        break;
+    case 3:
+        strcpy(nameFile, "PROVAO.TXT");
+        break;
+    default:
+        printf("Insira uma situacao valida");
+        exit(1);
     }
 }
-
-
 
 int main(int argc, char const *argv[])
 {
@@ -547,6 +528,7 @@ int main(int argc, char const *argv[])
     printf("nota: Colocar funcao -P...\n");
     int numRegs = atoi(argv[2]);
     int situacao = atoi(argv[3]);
+    int comparacoes = 0;
 
     char nameFile[30];
     switchNameFile(nameFile, situacao);
@@ -555,13 +537,20 @@ int main(int argc, char const *argv[])
     readProvao(nameFile, NAMEBIN, numRegs);
 
     // Gera blocos ordenados
-    initTapes(numRegs);
+    initTapes(numRegs, &comparacoes);
+
+    int comparacoesBlocosOrdenados = comparacoes;
+    printf("\nNumero de Comparacoes para gerar blocos ordenados: %d\n\n", comparacoesBlocosOrdenados);
+
 
     /* Chama intercalacao */
-    callIntercalate();
+    callIntercalate(&comparacoes);
+
+    printf("\nNumero de Comparacoes para intercalacao: %d\n", (comparacoes - comparacoesBlocosOrdenados));
 
     /* Formata saida Final*/
     callFormatFinalOutput();
-
+    printf("---------- ** ----------\n");
+    printf("Comparacoes totais: %d\n", comparacoes);
     return 0;
 }
